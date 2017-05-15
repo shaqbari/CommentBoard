@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	//동기방식을 사용하면 전송할때마다 초기화가 되서 사용하기 불편하다.
+	
+	var xhttp;
+	var nick, age, gender;
+	
+	function init(){
+		//ajax의 객체 생성
+		xhttp=new XMLHttpRequest();
+		
+		nick=document.getElementById("nick");
+		age=document.getElementById("age");
+		gender=document.getElementById("gender");
+		
+		//비동기 실행부의 상태에 따라 호출되는 콜백함수를 이용하여 처리할 시점을 결정한다.
+		xhttp.onreadystatechange=function(){
+			if(xhttp.readyState==4 && xhttp.status==200){
+				//서버로부터 제대로 된 응답을 받았다는 확인이 든 시점
+				//alert(xhttp.readyState);
+				var obj=JSON.parse(xhttp.responseText);
+				//alert(obj.members[0].name);
+				
+				//name.value=obj.members[1].name;//name은 예약어라 충돌난다.
+				nick.value=obj.members[1].name;//name은 예약어라 충돌난다.				
+				age.value=obj.members[1].age;
+				gender.value=obj.members[1].gender;
+			}
+		}
+		
+		xhttp.open("GET", "data.jsp?phone=01022223333&addr=seoul", true);
+		
+	}
+	
+	function send(){
+		xhttp.send();
+	}
+</script>
+</head>
+
+<body onLoad="init()">
+	<pre>
+	<input type="text" id="nick" placeholder="이름"/>
+	<input type="text" id="age" placeholder="나이"/>
+	<input type="text" id="gender" placeholder="성별"/>
+	<input type="button" value="전송" onClick="send()"/>
+	</pre>
+</body>
+</html>

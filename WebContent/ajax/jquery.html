@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+	//area.value="apple" 이거만 쓰면 불가능 왜냐하면 html문서가 다 로드되기 전이므로.
+	/* window.onload=function(){
+		alert("순수 js를 이용한 load 이벤트 체크");
+	}; */	
+	$("document").ready(function(){//body에 onload=""와 같다.
+		//alert("jquery를 이용한 load 이벤트 체크");
+		$("#bt").click(function(){
+			//alert("나 눌렀어?");
+			//$("#area").load("data.jsp");
+			$.ajax({
+				url:"data.jsp",
+				type:"GET",
+				data:"phone=010&addr=boston",
+				success:function(result){
+					//alert(result);
+					//$("#area").value=result;//js문법이다.
+					$("#area").val(result);
+					
+				}
+			});
+		});
+	});
+	
+</script>
+</head>
+<body>
+	<input type="button" id="bt" value="전송"/>
+	<textarea name=""id="area" cols="35" rows="25"></textarea>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	/* 
+		cf)MyFlatform 우리나라에서 만든 ajax이용 어플?
+		
+		서버에 비동기방식으로 요청을 시도해보자
+		현재 실행부가 직접 서버에 요청을 하는 것이 아니라, 별도의 실행보가 백그라운드에서 요청 및
+		그 결과까지 가져와 주기 때문에 현제 페이지의 reloading이 일어나지 않는다.
+		마치 응용프로그램처럼 보인다.
+	*/
+	
+		function getFruit(){
+			//alert("눌렀어?");
+			//비동기 통신 객체 생성
+			
+		/* 	var xhttp=new XMLHttpReqeust(); //오타주의하자
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			        //alert("나 잘 도착했어요!");
+			    	var txt=document.getElementById("txt");
+			    	
+			    	txt.value=this.responseText;
+			    }
+			}; */
+			/* 
+			//서버에 요청하기
+			xhttp.open("GET", "apple.jsp", true); //true면 비동기 방식
+			xhttp.send(); //이 시점에 요청이 발생 */
+			
+			var xhttp = new XMLHttpRequest();
+			  xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			     //document.getElementById("demo").innerHTML = this.responseText;
+					var txt=document.getElementById("txt");
+					txt.value=this.responseText;;			    	
+			    	
+			    
+			    }
+			  };
+			  xhttp.open("GET", "/test/apple.jsp", true);
+			  xhttp.send();
+			  
+		}
+</script>
+
+</head>
+<body>
+	<!-- <a href="apple.jsp">과일요청 sync</a><br> -->
+	<a href="javascript:getFruit()">과일요청 async</a>
+	<input type="text" id="txt"/>
+</body>
+</html>
