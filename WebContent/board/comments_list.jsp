@@ -1,10 +1,10 @@
+<%@page import="comments.model.CommentsDAOMybatis"%>
 <%@page import="comments.model.Comments"%>
 <%@page import="java.util.List"%>
-<%@page import="comments.model.CommentsDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%!
-	CommentsDAO commentsDAO=new CommentsDAO();
+	CommentsDAOMybatis commentsDAO=new CommentsDAOMybatis();
 %>
 <%
 	//클라이언트가 전송한 news_id에 해당하는 하위 댓글 목록을 조회한 후, 응답하자.

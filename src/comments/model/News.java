@@ -1,5 +1,7 @@
 package comments.model;
 
+import java.util.ArrayList;
+
 public class News {
 	private int news_id;
 	private String writer;
@@ -7,8 +9,17 @@ public class News {
 	private String content;
 	private String regdate;
 	private int hit;
-	
+	//private List<Comments> comments;
+	private ArrayList<Comments> list;
+		
 	//hybonate로 이작업을 자동화할 수 있다.
+	
+	public ArrayList<Comments> getList() {
+		return list;
+	}
+	public void setList(ArrayList<Comments> list) {
+		this.list = list;
+	}
 	
 	public int getNews_id() {
 		return news_id;

@@ -1,7 +1,9 @@
-<%@page import="comments.model.NewsDAO"%>
+<%@page import="comments.model.NewsDAOMybatis"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ include file="/inc/message.jsp" %>
-<%! NewsDAO newsDAO=new NewsDAO(); %>
+<%!
+	NewsDAOMybatis newsDAO=new NewsDAOMybatis();
+%>
 <jsp:useBean id="dto" class="comments.model.News"></jsp:useBean><!--new하는것에 해당  -->
 <%-- <jsp:setProperty property="writer" name="writer"/> --%>
 

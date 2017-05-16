@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="News">
+	<!-- <resultMap type="News" id="myMap">
+		<result column="news_id" property="news_id"/>
+		<result column="writer" property="writer" />
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="regdate" property="regdate"/>
+		<result column="hit" property="hit"/>
+		<association property="comments" column="news_id" javaType="java.util.List" select="selectComments"/>
+	List는   javatype이 될수 없다. 1:다 관계이면 collection을 사용한다.
+	
+	</resultMap>
+	<select id="selectComments" resultType="Comments">
+		select * from comments where news_id=#{news_id}
+	</select>
+	
+	<select id="commentsNewsOuterJoin" resultMap="myMap">
+		select * from news
+	</select>
+	 -->
+	
+		<!-- <result column="cnt" property="cnt"/> -->
+		<!-- <association property="comments" column="news_id" javaType="java.util.List" select="selectComments"/> -->
+	<resultMap type="News" id="joinMap">
+		<id column="news_id" property="news_id"/>
+		<result column="writer" property="writer" />
+		<result column="regdate" property="regdate"/>
+		<result column="title" property="title"/>	
+		<result column="hit" property="hit"/>
+		<collection 
+			property="list"
+			javaType="java.util.ArrayList"			
+			ofType="Comments"
+			column="news_id"
+			select="selectComments"	
+		/>		
+		
+	
+	</resultMap>
+	
+	<select id="selectComments" resultType="Comments">
+		select * from comments where news_id=#{news_id}
+	</select>
+	
+	<!--  Commnets와  조인-->
+	<select id="selectJoin" resultMap="joinMap">
+		 select * from news order by news_id desc	 
+	</select>
+		<!--  select
+		 title, n.writer, n.regdate, hit, count(c.news_id) as cnt 집계함수가 많아지면 힘들다. 성능은 이게 좀더 좋다.
+		 from news n left outer join comments c
+		 on n.news_id=c.news_id
+		 group by n.title, n.writer, n.regdate, n.hit -->	
+
+	<select id="selectAll" resultType="News">
+		select * from News order by news_id desc
+	</select>
+	
+	<select id="select" resultType="News" parameterType="int">
+		select * from News where news_id=#{news_id}
+	</select>
+	
+	<delete id="delete" parameterType="int">
+		delete from news where news_id=#{news_id}	
+	</delete>
+	
+	<update id="update" parameterType="News">
+		update news set writer=#{writer}, title=#{title}, content=#{content}
+		where news_id=#{news_id}  
+	</update>
+	
+	<insert id="insert" parameterType="News">
+		insert into news(news_id, writer, title, content)
+		values(seq_news.nextVal, #{writer}, #{title}, #{content})
+	</insert>
+	
+</mapper>
+<!-- 변수가 여러개인경우 dto로 parameterType을 설정하면 자동으로 mapping해준다. -->

@@ -1,12 +1,12 @@
+<%@page import="comments.model.CommentsDAOMybatis"%>
 <%@page import="org.json.simple.JSONArray"%>
 <%@page import="org.json.simple.JSONObject"%>
 <%@page import="java.util.List"%>
 <%@page import="comments.model.Comments"%>
-<%@page import="comments.model.CommentsDAO"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%@ include file="/inc/message.jsp" %>
 <%!
-	CommentsDAO commentsDAO=new CommentsDAO();
+	CommentsDAOMybatis commentsDAO=new CommentsDAOMybatis();
 
 %>
 <%

@@ -9,7 +9,11 @@ import java.util.List;
 
 import pool.PoolManager;
 
-public class NewsDAO {
+/**
+ * @author user1
+ *	어쩔수 없이 myBatis가아닌 jdbc를 이용해야 할 때도 있다.
+ */
+public class NewsDAOJDBC {
 	PoolManager pool=PoolManager.getInstance();
 	
 	//CRUD

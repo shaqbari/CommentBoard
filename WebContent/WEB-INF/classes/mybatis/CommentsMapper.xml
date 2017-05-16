@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Comments">
+	<!-- <resultMap type="Comments" id="myMap">
+		<result column="comments_id" property="comments_id"/>
+		<result column="writer" property="writer"/>
+		<result column="msg" property="msg"/>
+		<result column="regdate" property="regdate"/>
+		<result column="news_id" property="news_id"/>
+		<association property="news" column="news_id" javaType="News" select="selectNews"/>
+	
+	</resultMap>
+	<select id="selectNews" resultType="News">
+		select * from news where news_id=#{news_id}
+	</select>
+	
+	<select id="commentsNewsOuterJoin" resultMap="myMap">
+		select * from comments
+	</select> -->
+
+	<select id="select" resultType="Comments" parameterType="int">
+		select * from comments where news_id=#{news_id} order by comments_id desc
+	</select>
+			
+	<insert id="insert" parameterType="Comments">
+		insert into comments(comments_id, writer, msg, news_id)
+		values(seq_comments.nextVal, #{writer}, #{msg}, #{news_id})
+	</insert>
+	
+</mapper>

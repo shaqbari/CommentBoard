@@ -6,7 +6,14 @@ public class Comments {
 	private String msg;
 	private String regdate;
 	private int news_id;
-	
+	/*private News news;//부모 테이블
+		
+	public News getNews() {
+		return news;
+	}
+	public void setNews(News news) {
+		this.news = news;
+	}*/
 	public int getComments_id() {
 		return comments_id;
 	}

@@ -1,17 +1,17 @@
+<%@page import="comments.model.CommentsDAOMybatis"%>
+<%@page import="comments.model.NewsDAOMybatis"%>
 <%@page import="comments.model.Comments"%>
 <%@page import="java.util.List"%>
-<%@page import="comments.model.CommentsDAO"%>
 <%@page import="comments.model.News"%>
-<%@page import="comments.model.NewsDAO"%>
 <%@ page contentType="text/html;charset=utf-8"%>
 <%! 
-	NewsDAO newsDAO=new NewsDAO();
-	CommentsDAO commentsDAO=new CommentsDAO();
+	NewsDAOMybatis newsDAO=new NewsDAOMybatis();
+	//CommentsDAOMybatis commentsDAO=new CommentsDAOMybatis();
 %>
 <%
 	String news_id=request.getParameter("news_id");	
 	News news=newsDAO.select(Integer.parseInt(news_id));
-	List<Comments> list=commentsDAO.select(Integer.parseInt(news_id));
+	//List<Comments> list=commentsDAO.select(Integer.parseInt(news_id));
 	
 	
 %>
@@ -142,10 +142,16 @@ img{border:0px}
 			
 			xhttp.open("GET", "comments_list.jsp?news_id="+form1.news_id.value, true);
 			xhttp.send();
-		}
-		
+		}		
+			
 	</script>
-
+	<script>
+		function update(){
+			//alert("writer버튼 눌렀어?");	
+			form1.action="update.jsp";
+			form1.submit();
+		}
+	</script>
 </head>
 <body onLoad="init()">
 <form name="form1" method="post">
@@ -186,8 +192,9 @@ img{border:0px}
 		</tr>
 	  <tr>
 	    <td height="30" align="right" style="padding-right:2px;">
-		<img src="/board/images/write_btin.gif" width="61" height="20">
-		<img src="/board/images/delete_btn.gif" width="61" height="20"> <a href="list.jsp"><img src="/board/images/list_btn.gif" width="61" height="20" border="0"></a> </td>
+		<a href="javascript:update();"><img src="/board/images/write_btin.gif" width="61" height="20"></a>
+		<a href="delete.jsp?news_id=<%=news_id%>"><img src="/board/images/delete_btn.gif" width="61" height="20"></a>
+		<a href="list.jsp"><img src="/board/images/list_btn.gif" width="61" height="20" border="0"></a> </td>
 	  </tr>
 	  <tr>
 	  	<td>
